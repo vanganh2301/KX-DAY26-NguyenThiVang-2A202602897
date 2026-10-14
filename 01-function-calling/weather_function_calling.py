@@ -9,12 +9,27 @@ Cách chạy:
     python weather_function_calling.py
 """
 
+import os
+import sys
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
+# Tự động cấu hình mã hóa UTF-8 cho Windows console và nạp biến môi trường từ .env
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+load_dotenv()
+env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
+if os.path.exists(env_path):
+    load_dotenv(env_path)
+
 client = genai.Client()
 
-MODEL = "gemini-2.5-flash"
+MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
 
 SYSTEM_INSTRUCTION = (
     "Bạn là trợ lý thời tiết thân thiện, trả lời bằng tiếng Việt tự nhiên. "
