@@ -4,6 +4,12 @@ import asyncio
 import json
 import sys
 
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
