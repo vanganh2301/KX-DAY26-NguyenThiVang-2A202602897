@@ -1,7 +1,19 @@
-from typing import Any
 import asyncio
-import httpx
 import os
+import sys
+from typing import Any
+from dotenv import load_dotenv
+
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+
+import httpx
 from mcp.server.fastmcp import FastMCP
 
 # Initialize FastMCP server
